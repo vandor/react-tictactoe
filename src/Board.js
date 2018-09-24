@@ -13,7 +13,7 @@ export default class Board extends React.Component {
   }
 
   render() {
-    const rowSize = 3,
+    const rowSize = this.props.gridSize,
       colSize = rowSize,
       rows = [...Array(rowSize).keys()],
       cols = [...Array(colSize).keys()];

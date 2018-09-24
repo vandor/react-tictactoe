@@ -4,6 +4,6 @@ import './index.css';
 import Game from './Game'
 
 ReactDOM.render(
-  <Game />,
+  <Game gridSize={3}/>,
   document.getElementById('root')
 );

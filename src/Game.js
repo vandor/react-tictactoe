@@ -7,6 +7,7 @@ export default class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        lastMove: null,
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -24,7 +25,10 @@ export default class Game extends React.Component {
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
-      history: history.concat([{ squares }]),
+      history: history.concat([{
+        squares,
+        lastMove: i,
+      }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
@@ -57,6 +61,12 @@ export default class Game extends React.Component {
     return null;
   }
 
+  getRowAndCol(squareIndex) {
+    const row = Math.floor(squareIndex / this.props.gridSize) + 1;
+    const col = (squareIndex % this.props.gridSize) + 1;
+    return {row, col};
+  }
+
   render() {
     const history = this.state.history
     const curStep = this.state.stepNumber;
@@ -64,8 +74,9 @@ export default class Game extends React.Component {
     const winner = this.calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
+      const {row, col} = this.getRowAndCol(step.lastMove);
       const desc = move ?
-        'Go to move #' + move :
+        `Go to move #${move} (${row}, ${col})` :
         'Go to game start';
       return (
         <li key={move}>
@@ -87,6 +98,7 @@ export default class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
+            gridSize={this.props.gridSize}
             squares={current.squares}
             onClick={this.handleClick}
           />
