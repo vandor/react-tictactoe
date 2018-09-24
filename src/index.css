@@ -36,6 +36,10 @@ ol, ul {
   outline: none;
 }
 
+.square.winner {
+  background-color: #4CAF50;
+}
+
 .kbd-navigation .square:focus {
   background: #ddd;
 }
@@ -48,4 +52,3 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
-
